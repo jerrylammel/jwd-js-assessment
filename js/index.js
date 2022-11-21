@@ -76,15 +76,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.setAttribute('style', 'background-color: #67c88d;');
         }
 
         if (radioElement.checked) {
           // code for task 1 goes here
+            if (i === quizItem.a) {
+              score += 1;
+            }
         }
       }
     });
+
+    const yourScore = document.getElementById('score');
+    yourScore.innerText = `${score}`;
   };
 
+  const submitBtn = document.getElementById('btnSubmit');
+  submitBtn.addEventListener('click', calculateScore);
   // call the displayQuiz function
   displayQuiz();
 });
