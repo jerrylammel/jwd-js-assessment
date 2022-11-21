@@ -44,6 +44,16 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+    {
+      q: 'What causes a solar eclipse?',
+      o: ['A dog in the sky swallowed the moon', 'The moon went into sleeping', 'The sun stop casting its light to the moon', 'The moon moves between the sun and Earth, casting a shadow on Earth'],
+      a: 3
+    },
+    {
+      q: 'Which country is the largest in the world?',
+      o: ['United States', 'Canada', 'China', 'Russia'],
+      a: 3
+    }
   ];
 
   // function to Display the quiz questions and answers from the object
