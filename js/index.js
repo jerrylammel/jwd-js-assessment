@@ -69,36 +69,112 @@ window.addEventListener('DOMContentLoaded', () => {
     myTimeout = setInterval(checkQuizTimeOut, INTERVAL); 
   });
 
+
+    const quizRepo = [
+      {
+        q : "What is the standard distance between the target and archer in Olympics?",
+        o : [
+          "50 meters",
+          "70 meters",
+          "100 meters",
+          "120 meters"
+        ],
+        a : 1 // arrays start with 0, so answer is 70 meters
+      },
+      {
+        q : "Which is the highest number on a standard roulette wheel?",
+        o : [
+          "22",
+          "24",
+          "32",
+          "36"
+        ],
+        a : 3
+      },
+      {
+        q : "How much wood could a woodchuck chuck if a woodchuck would chuck wood?",
+        o : [
+          "400 pounds",
+          "550 pounds",
+          "700 pounds",
+          "750 pounds"
+        ],
+        a : 2
+      },
+      {
+        q : "Which is the seventh planet from the sun?",
+        o : [
+          "Uranus",
+          "Earth",
+          "Pluto",
+          "Mars"
+        ],
+        a : 0
+      },
+      {
+        q : "Which is the largest ocean on Earth?",
+        o : [
+          "Atlantic Ocean",
+          "Indian Ocean",
+          "Arctic Ocean",
+          "Pacific Ocean"
+        ],
+        a : 3
+      },
+      {
+        q: 'Which is the third planet from the sun?',
+        o: ['Saturn', 'Earth', 'Pluto', 'Mars'],
+        a: 1 // array index 1 - so Earth is the correct answer here
+      },
+      {
+        q: 'Which is the largest ocean on Earth?',
+        o: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'],
+        a: 3
+      },
+      {
+        q: 'What is the capital of Australia',
+        o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
+        a: 1
+      },
+      {
+        q: 'What causes a solar eclipse?',
+        o: ['A dog in the sky swallowed the moon', 'The moon went into sleeping', 'The sun stop casting its light to the moon', 'The moon moves between the sun and Earth, casting a shadow on Earth'],
+        a: 3
+      },
+      {
+        q: 'Which country is the largest in the world?',
+        o: ['United States', 'Canada', 'China', 'Russia'],
+        a: 3
+      },
+      {
+        q: 'In 1768, Captain James Cook set out to explore which ocean?',
+        o: ['Pacific Ocean', 'Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean'],
+        a: 1
+      },
+      {
+        q: 'What is actually electricity?',
+        o: ['A flow of wate', 'A flow of air', 'A flow of electrons', 'A flow of atoms'],
+        a: 2
+      },
+      {
+        q: 'Which of the following is not an international organisation?',
+        o: ['FIFA', 'NATO', 'ASEAN','FBI'],
+        a: 3
+      }
+    ];
+
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
-  const quizArray = [
-    {
-      q: 'Which is the third planet from the sun?',
-      o: ['Saturn', 'Earth', 'Pluto', 'Mars'],
-      a: 1, // array index 1 - so Earth is the correct answer here
-    },
-    {
-      q: 'Which is the largest ocean on Earth?',
-      o: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'],
-      a: 3,
-    },
-    {
-      q: 'What is the capital of Australia',
-      o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
-      a: 1,
-    },
-    {
-      q: 'What causes a solar eclipse?',
-      o: ['A dog in the sky swallowed the moon', 'The moon went into sleeping', 'The sun stop casting its light to the moon', 'The moon moves between the sun and Earth, casting a shadow on Earth'],
-      a: 3
-    },
-    {
-      q: 'Which country is the largest in the world?',
-      o: ['United States', 'Canada', 'China', 'Russia'],
-      a: 3
-    }
-  ];
+  const quizArray = [];
+
+  // randomly choose 5 questions from the quiz repo
+  const tempArr = [...quizRepo];
+  for (let i = 0; i < 5; i++) {
+    const idx = Math.floor(Math.random() * tempArr.length);
+    quizArray.push(tempArr[idx]);
+    tempArr.splice(idx, 1);
+  }
 
   // function to Display the quiz questions and answers from the object
   const displayQuiz = () => {
