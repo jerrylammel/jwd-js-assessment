@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let timeStarted;
   let myTimeout;
 
-  function addZero(i) {
+  function prependZero(i) {
     if (i < 10) {i = "0" + i}
     return i;
   }
@@ -43,8 +43,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let mins = Math.floor(timeRemained / (60 * 1000));
     let secs = Math.floor(timeRemained % (60 * 1000) / 1000);
-    mins = addZero(mins);
-    secs = addZero(secs);
+    mins = prependZero(mins);
+    secs = prependZero(secs);
 
     document.getElementById('time').innerHTML = `${mins}:${secs}`;
 
@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
     start.style.display = 'none';
 
     // set initial Time remaning
-    document.getElementById('time').innerHTML = `${addZero(TOTALMINTUES)}:00`;
+    document.getElementById('time').innerHTML = `${prependZero(TOTALMINTUES)}:00`;
     timeStarted = Date.now();
     timeRemained = TOTALMINTUES * 60 * 1000;
     myTimeout = setInterval(checkQuizTimeOut, INTERVAL); 
@@ -132,7 +132,7 @@ window.addEventListener('DOMContentLoaded', () => {
         a: 3
       },
       {
-        q: 'What is the capital of Australia',
+        q: 'What is the capital of Australia?',
         o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
         a: 1
       },
@@ -203,12 +203,6 @@ window.addEventListener('DOMContentLoaded', () => {
         let r = `radio_${index}_${i}`;
         liElement = document.querySelector('#' + li);
         radioElement = document.querySelector('#' + r);
-
-        if (quizItem.a == i) {
-          //change background color of li element here
-          liElement.setAttribute('style', 'background-color: #67c88d;');
-        }
-
         if (radioElement.checked) {
           // code for task 1 goes here
             if (i === quizItem.a) {
@@ -218,12 +212,35 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    const yourScore = document.getElementById('score');
-    yourScore.innerText = ` ${score}`;
+    return score;
   };
 
+  const hightlightCorrectAnswers = () => {
+    quizArray.map((quizItem, index) => {
+      for (let i = 0; i < 4; i++) {
+        //highlight the li if it is the correct answer
+        let li = `li_${index}_${i}`;
+        let r = `radio_${index}_${i}`;
+        liElement = document.querySelector('#' + li);
+        radioElement = document.querySelector('#' + r);
+
+        if (quizItem.a == i) {
+          //change background color of li element here
+          liElement.setAttribute('style', 'background-color: #67c88d;');
+        }
+      }      
+    })
+  };
+
+  const updateAnswersAndScore = () => {
+    hightlightCorrectAnswers();
+    const score = calculateScore();
+    const yourScore = document.getElementById('score');
+    yourScore.innerText = ` ${score}`;
+  }
+
   const submitBtn = document.getElementById('btnSubmit');
-  submitBtn.addEventListener('click', calculateScore);
+  submitBtn.addEventListener('click', updateAnswersAndScore);
   const resetBtn = document.getElementById('btnReset');
   resetBtn.addEventListener('click', () => {
     console.log(window.location.href);
