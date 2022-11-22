@@ -104,6 +104,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const submitBtn = document.getElementById('btnSubmit');
   submitBtn.addEventListener('click', calculateScore);
+  const resetBtn = document.getElementById('btnReset');
+  resetBtn.addEventListener('click', () => {
+    console.log(window.location.href);
+    window.location.reload()
+  });
   // call the displayQuiz function
   displayQuiz();
 });
