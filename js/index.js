@@ -20,11 +20,55 @@
 *************************** */
 
 window.addEventListener('DOMContentLoaded', () => {
+  const TOTALMINTUES = 1;
+  const INTERVAL = 1000;
+  let timeRemained;
+  let timeStarted;
+  let myTimeout;
+
+  function addZero(i) {
+    if (i < 10) {i = "0" + i}
+    return i;
+  }
+
+  const checkQuizTimeOut = () => {
+    let currentTime = Date.now();
+    let timePassed = Math.floor((currentTime - timeStarted)/1000) * 1000;
+    timeRemained -= timePassed;
+    timeStarted = currentTime;
+  
+    if (timeRemained < 0) {
+      timeRemained = 0;
+    }
+
+    let mins = Math.floor(timeRemained / (60 * 1000));
+    let secs = Math.floor(timeRemained % (60 * 1000) / 1000);
+    mins = addZero(mins);
+    secs = addZero(secs);
+
+    document.getElementById('time').innerHTML = `${mins}:${secs}`;
+
+    // times out
+    if (timeRemained <= 0) {
+      // trigger click on the submit button
+      clearInterval(myTimeout);
+      myTimeout = -1;
+      document.getElementById('btnSubmit').click();
+    }
+  }
+
   const start = document.querySelector('#start');
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
+
+    // set initial Time remaning
+    document.getElementById('time').innerHTML = `${addZero(TOTALMINTUES)}:00`;
+    timeStarted = Date.now();
+    timeRemained = TOTALMINTUES * 60 * 1000;
+    myTimeout = setInterval(checkQuizTimeOut, INTERVAL); 
   });
+
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
@@ -99,7 +143,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     const yourScore = document.getElementById('score');
-    yourScore.innerText = `${score}`;
+    yourScore.innerText = ` ${score}`;
   };
 
   const submitBtn = document.getElementById('btnSubmit');
